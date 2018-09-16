@@ -1,4 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
+
+class Atleta {
+  String nome;
+  String urlFoto;
+  Atleta({this.nome, this.urlFoto});
+}
+
+class MaisEscalados {
+  Atleta atleta;
+  String qtdEscalacoes;
+  String clube;
+  String posicao;
+
+  MaisEscalados({this.atleta, this.qtdEscalacoes, this.clube, this.posicao});
+}
 
 void main() => runApp(new MyApp());
 
@@ -7,104 +28,141 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Mais Escalados da Rodada',
       theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepOrange,
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return new Scaffold(
-      appBar: new AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title),
-        backgroundColor: Colors.blue,
-      ),
-      body: new Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: new Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug paint" (press "p" in the console where you ran
-          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
-          // window in IntelliJ) to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Mais Escalados da Rodada'),
+          elevation: 0.0,
+        ),
+        drawer: new Drawer(
+          child: new ListView(
+            children: <Widget>[
+              new ListTile(
+                title: new Text("Bem-vindo"),
+              ),
+              new Divider(),
+              new ListTile(
+                  title: new Text("Fechar aplicativo"),
+                  trailing: new Icon(Icons.close),
+                  onTap: () => exit(0)),
+            ],
+          ),
+        ),
+        body: new Container(
+          margin: const EdgeInsets.only(left: 0.0, right: 0.0, bottom: 5.0, top:5.0),
+          color: Colors.black12,
+          child: new FutureBuilder<List<MaisEscalados>>(
+            future: fetchMaisEscalados(),
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return new ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index){
+                      return new Container(
+                          margin: const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 2.0, top:2.0),
+                          child: new Material(
+                              borderRadius: new BorderRadius.circular(6.0),
+                              elevation: 0.5,
+                              child: new Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                      width: 40.0,
+                                      height: 40.0,
+                                      margin: const EdgeInsets.only(left: 3.0, right: 0.0, bottom: 0.0, top:0.0),
+                                      decoration: new BoxDecoration(
+                                      borderRadius: BorderRadius.all(const Radius.circular(4.0)),
+                                      image: new DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: new NetworkImage(
+                                                  snapshot.data[index].atleta.urlFoto)
+                                      )
+                                    )
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                        margin: const EdgeInsets.only(left: 5.0, right: 0.0, bottom: 0.0, top:0.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                             Text(snapshot.data[index].atleta.nome, style: TextStyle(fontWeight: FontWeight.bold)),
+                                             Text(snapshot.data[index].clube),
+                                             Text(snapshot.data[index].posicao, style: TextStyle(color: Colors.black54)),
+                                          ],
+                                        )
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 0.0, right: 3.0, bottom: 0.0, top:0.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        Text('${index+1}º', style: TextStyle(fontWeight: FontWeight.bold),),
+                                        Text('${snapshot.data[index].qtdEscalacoes} escalações')
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          )
+                      );
+                    }
+                );
+              }
+              else if(snapshot.hasError){
+                return new Text("${snapshot.error}");
+              }
+              return new  Center(
+                child: new CircularProgressIndicator(),
+              );
+            },
+          ),
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+
+  Future<List<MaisEscalados>> fetchMaisEscalados() async {
+    final response = await http.get('https://api.cartolafc.globo.com/mercado/destaques');
+
+    if (response.statusCode == 200) {
+
+      List responseJson = json.decode(response.body.toString());
+      List<MaisEscalados> listaMaisEscalados = criarListaMaisEscalados(responseJson);
+
+      return listaMaisEscalados;
+    } else {
+      throw Exception('Erro ao obter lista dos jogadores mais escalados');
+    }
+  }
+
+
+  List<MaisEscalados> criarListaMaisEscalados(List dados){
+
+    List<MaisEscalados> lista = new List();
+
+    for(int i = 0; i < dados.length; i++){
+
+      final formatoEscalacoes = new NumberFormat("###,###.###", "pt-br");
+
+      Atleta atleta = new Atleta();
+      atleta.nome = dados[i]["Atleta"]["apelido"];
+      atleta.urlFoto = dados[i]["Atleta"]["foto"].toString().replaceAll("FORMATO", "140x140");
+      String qtdEscalacoes = formatoEscalacoes.format(dados[i]["escalacoes"]);
+      String clube = dados[i]["clube"];
+      String posicao = dados[i]["posicao"];
+
+      MaisEscalados jogador = new MaisEscalados(atleta: atleta , qtdEscalacoes: qtdEscalacoes, clube: clube, posicao: posicao);
+
+      lista.add(jogador);
+    }
+    return lista;
+  }
 }
+
+
