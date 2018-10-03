@@ -43,9 +43,9 @@ class DestaquePage extends StatelessWidget {
 
     if (response.statusCode == 200) {
       List responseJson = json.decode(response.body.toString());
-      List<Destaque> listaMaisEscalados =  criarListaDestaques(responseJson);
+      List<Destaque> listaDestaques =  criarListaDestaques(responseJson);
 
-      return listaMaisEscalados;
+      return listaDestaques;
     } else {
       throw Exception('Erro ao obter lista dos jogadores mais escalados');
     }

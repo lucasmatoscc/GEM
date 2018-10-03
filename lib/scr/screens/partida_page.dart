@@ -41,7 +41,12 @@ class PartidaPage extends StatelessWidget {
   final response = await http.get(API_PARTIDAS+'27');
 
     if (response.statusCode == 200) {
-      return PartidasDaRodada.fromJson(json.decode(response.body)).partidasDaRodada;
+      List<Partida> partidasList = PartidasDaRodada.fromJson(json.decode(response.body)).partidasDaRodada;
+
+       partidasList.sort((a, b) {
+          return a.dataHorario.compareTo(b.dataHorario);
+        });
+    return partidasList;
     } else {
       throw Exception('Erro ao obter lista das partidas da rodada.');
     }

@@ -10,9 +10,9 @@ class PartidasDaRodada {
   PartidasDaRodada({this.numRodada, this.partidasDaRodada});
 
   factory PartidasDaRodada.fromJson(Map<String, dynamic> parsedJson){
-    var listPartidas = parsedJson['partidas'] as List;
+    var listPartidas   = parsedJson['partidas'] as List;
     var listInfoClubes = parsedJson['clubes'];
-    var numRodada = parsedJson['rodada'];
+    var numRodada      = parsedJson['rodada'];
 
     List<Partida> partidasList = listPartidas.map((i) => Partida.fromJson(i)).toList();
    

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'destaque_page.dart';
 import 'partida_page.dart';
+import 'mercado_page.dart';
 import 'dart:io';
 
 class DrawerItem {
@@ -31,13 +32,13 @@ class HomePageState extends State<HomePage> {
   getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-        return  Center(child: Text("Bem-vindo"));
+        return Center(child: MercadoPage());
       case 1:
-        return  DestaquePage();
+        return DestaquePage();
       case 2:
         return PartidaPage();  
       default:
-        return  Text("Error");
+        return Text("Error");
     }
   }
   

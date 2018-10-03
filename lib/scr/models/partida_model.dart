@@ -1,5 +1,7 @@
 import 'clube_model.dart';
 import 'package:intl/intl.dart';
+import '../util.dart';
+
 
 class Partida {
   Clube clubeMandante;
@@ -9,6 +11,8 @@ class Partida {
   String local;
   String data;
   String horario;
+  DateTime dataHorario;
+  String diaPartida;
 
   Partida({this.clubeMandante,
            this.clubeVisitante,
@@ -16,7 +20,9 @@ class Partida {
            this.placarVisitante,
            this.local,
            this.data,
-           this.horario});
+           this.horario,
+           this.dataHorario,
+           this.diaPartida});
 
   factory Partida.fromJson(Map<String, dynamic> json) {
    
@@ -30,13 +36,14 @@ class Partida {
 
     final formatoData = new DateFormat('dd/MM/yyyy');
     final formatoHora = new DateFormat('HH:mm');
-    
+       
     String date =  json['partida_data'];
     String dateWithT = date.replaceAll('-', '');
     dateWithT = dateWithT.replaceAll(':', '');
     dateWithT = dateWithT.replaceAll(' ', '');
     dateWithT = dateWithT.substring(0, 8) + 'T' + dateWithT.substring(8);
     DateTime dataHorario = DateTime.parse(dateWithT);
+    
     
     return Partida(
       clubeMandante : clubeMandante,
@@ -45,7 +52,10 @@ class Partida {
       placarVisitante: json['placar_oficial_visitante'] as int,
       local: json['local'] as String,
       data: formatoData.format(dataHorario),
-      horario: formatoHora.format(dataHorario)
+      horario: formatoHora.format(dataHorario),
+      //valida:  json['valida'] as bool
+      dataHorario: dataHorario,
+      diaPartida:  Util.obterDiaSemana(dataHorario)
     );
  }
 }
