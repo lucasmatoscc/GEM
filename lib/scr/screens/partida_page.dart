@@ -14,7 +14,7 @@ class PartidaPage extends StatelessWidget {
   Widget build(BuildContext context){
     return  Container(
       padding: const EdgeInsets.only(bottom: 5.0, top: 5.0),
-      color: Colors.black12,
+      color: Colors.white,
       child: FutureBuilder<List<Partida>>(
         future: fetchPartidas(),
         builder: (context, snapshot) {
@@ -22,7 +22,7 @@ class PartidaPage extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                return MaterialList(PartidaWidget(snapshot, index)); //;
+                return PartidaWidget(snapshot, index); //;
               }
             );
           } else if (snapshot.hasError) {

@@ -15,7 +15,7 @@ class DestaquePage extends StatelessWidget {
   Widget build(BuildContext context){
     return  Container(
       padding: const EdgeInsets.only(bottom: 5.0, top: 5.0),
-      color: Colors.black12,
+      color: Colors.white,
       child: FutureBuilder<List<Destaque>>(
         future: fetchDestaques(),
         builder: (context, snapshot) {
@@ -23,7 +23,7 @@ class DestaquePage extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                return MaterialList(DestaqueWidget(snapshot, index)); //;
+                return DestaqueWidget(snapshot, index); //;
               }
             );
           } else if (snapshot.hasError) {

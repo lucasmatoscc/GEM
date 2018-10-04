@@ -23,7 +23,7 @@ class Clube {
       abreviacao: json['abreviacao'] as String,
       nome: json['nome'] as String,
       posicao: json['posicao'] as int,
-      urlEscudo60x60: json['escudos']['45x45'] as String,
+      urlEscudo60x60: json['escudos']['60x60'] as String,
     );
   }
 }

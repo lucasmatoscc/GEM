@@ -3,7 +3,7 @@ import 'destaque_page.dart';
 import 'partida_page.dart';
 import 'mercado_page.dart';
 import 'dart:io';
-
+import 'dart:async';
 class DrawerItem {
   String title;
   IconData icon;
@@ -73,19 +73,31 @@ class HomePageState extends State<HomePage> {
 
     return  Scaffold(
       appBar:  AppBar(
-         title:  Text(widget.drawerItems[selectedDrawerIndex].title),
+         title:  Text(widget.drawerItems[selectedDrawerIndex].title, style: TextStyle(color: Colors.white),),
          elevation: 2.0,
+         backgroundColor: Colors.green[600],
+         iconTheme: IconThemeData(color: Colors.white),
       ),
       drawer:  Drawer(
         child:  Column(
           children: <Widget>[
              UserAccountsDrawerHeader(
-                accountName:  Text("Seu Nome"), accountEmail:  Text("seunome@gmail.com")),
+               decoration: BoxDecoration(color: Colors.green[600]),
+                accountName:  Text("Seu Nome", style: TextStyle(color: Colors.white),), accountEmail:  Text("seunome@gmail.com", style: TextStyle(color: Colors.white),)),
              Column(children: drawerOptions)
           ],
         ),
       ),
-      body: getDrawerItemWidget(selectedDrawerIndex),
+      body: RefreshIndicator(child: getDrawerItemWidget(selectedDrawerIndex),
+      onRefresh: refreshPage)
     );
+  }
+
+  Future<Null> refreshPage() async
+  {
+    await new Future.delayed(new Duration(seconds: 2));
+    
+    setState(() => selectedDrawerIndex = selectedDrawerIndex);
+    
   }
 }

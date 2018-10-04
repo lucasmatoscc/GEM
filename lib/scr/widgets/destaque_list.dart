@@ -8,25 +8,29 @@ class DestaqueWidget extends StatelessWidget{
   DestaqueWidget(this.snapshot, this.index);
 
   Widget build(context){
-    return Row(
+    return  Padding(padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+          child:  
+    Column(children: <Widget>[
+       
+        Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[ 
               //Imagem jogador
               Container(
-                width: 40.0, 
-                height: 40.0,
-                margin: const EdgeInsets.only(left: 3.0, right: 0.0, bottom: 0.0, top: 0.0),
+                width: 52.0, 
+                height: 52.0,
+                margin: const EdgeInsets.only(top: 0.0),
                 decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(const Radius.circular(10.0)),
+                              borderRadius: BorderRadius.all(const Radius.circular(50.0)),
+                              color: Colors.grey[200],
                               image: DecorationImage(
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.fill,                                  
                                   image: NetworkImage(snapshot.data[index].atleta.urlFoto)))),
               //Detalhes jogador
               Expanded(
                 child:
                   Container(
-                    margin: const EdgeInsets.only(left: 5.0, right: 0.0, bottom: 0.0, top: 0.0),
+                    margin: const EdgeInsets.only(left: 10.0, right: 0.0, bottom: 0.0, top: 0.0),
                     child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -43,7 +47,7 @@ class DestaqueWidget extends StatelessWidget{
               ),
               //Quantidade de Escalações
               Container(
-                margin: const EdgeInsets.only(left: 0.0, right: 3.0, bottom: .0, top: 0.0),
+                
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
@@ -54,7 +58,9 @@ class DestaqueWidget extends StatelessWidget{
                   ],
                 ),
               ),
+              
             ],
-          );
+          ),
+          Divider(indent: 60.0, color: Colors.black38),]));
   }
 }

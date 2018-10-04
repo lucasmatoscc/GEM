@@ -3,19 +3,19 @@
   static String obterDiaSemana(DateTime data){
     switch (data.weekday) {
       case 1: 
-        return 'SEG';
+        return 'Seg';
       case 2:
-        return 'TER';
+        return 'Ter';
       case 3:
-        return 'QUA';
+        return 'Qua';
       case 4:
-        return 'QUI';
+        return 'Qui';
       case 5:
-        return 'SEX';
+        return 'Sex';
       case 6:
-        return 'SÁB';
+        return 'Sáb';
       case 7:
-        return 'DOM';
+        return 'Dom';
     }
   }
 }

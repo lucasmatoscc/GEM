@@ -10,9 +10,10 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,     
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.green
       ),
       home: HomePage(),
+      title: 'Amigos Cartoleiros',
       );
     
   }
