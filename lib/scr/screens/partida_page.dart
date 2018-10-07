@@ -38,7 +38,7 @@ class PartidaPage extends StatelessWidget {
   }
 
   Future<List<Partida>> fetchPartidas() async {
-  final response = await http.get(API_PARTIDAS+'27');
+  final response = await http.get(API_PARTIDAS+'28');
 
     if (response.statusCode == 200) {
       List<Partida> partidasList = PartidasDaRodada.fromJson(json.decode(response.body)).partidasDaRodada;

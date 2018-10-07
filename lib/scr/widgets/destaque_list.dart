@@ -22,7 +22,7 @@ class DestaqueWidget extends StatelessWidget{
                 margin: const EdgeInsets.only(top: 0.0),
                 decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(const Radius.circular(50.0)),
-                              color: Colors.grey[200],
+                              //color: Colors.grey[200],
                               image: DecorationImage(
                                   fit: BoxFit.fill,                                  
                                   image: NetworkImage(snapshot.data[index].atleta.urlFoto)))),
@@ -36,7 +36,7 @@ class DestaqueWidget extends StatelessWidget{
                     children: <Widget>[
                       //Nome Atleta
                       Text(snapshot.data[index].atleta.nome,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0)),
                       //Clube Atleta
                       Text(snapshot.data[index].clube),
                       //Posição Atleta
@@ -52,7 +52,7 @@ class DestaqueWidget extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                     //Classificação
-                    Text('${index + 1}º', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text('${index + 1}º', style: TextStyle(fontWeight: FontWeight.bold,)),
                     //Quantidad de Escalações
                     Text('${snapshot.data[index].qtdEscalacoes} escalações')
                   ],
@@ -61,6 +61,6 @@ class DestaqueWidget extends StatelessWidget{
               
             ],
           ),
-          Divider(indent: 60.0, color: Colors.black38),]));
+          Divider(indent: 60.0, color: Colors.black38, height:5.0,),]));
   }
 }

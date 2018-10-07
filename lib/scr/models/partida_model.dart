@@ -6,8 +6,8 @@ import '../util.dart';
 class Partida {
   Clube clubeMandante;
   Clube clubeVisitante;
-  int placarMandante;
-  int placarVisitante;
+  String placarMandante;
+  String placarVisitante;
   String local;
   String data;
   String horario;
@@ -43,13 +43,16 @@ class Partida {
     dateWithT = dateWithT.replaceAll(' ', '');
     dateWithT = dateWithT.substring(0, 8) + 'T' + dateWithT.substring(8);
     DateTime dataHorario = DateTime.parse(dateWithT);
+
+    String placarMandante = json['placar_oficial_mandante'] == null ? '-': json['placar_oficial_mandante'].toString();
+    String placarVisitante = json['placar_oficial_visitante'] == null ? '-': json['placar_oficial_visitante'].toString();
     
     
     return Partida(
-      clubeMandante : clubeMandante,
-      clubeVisitante : clubeVisitante,
-      placarMandante: json['placar_oficial_mandante'] as int,
-      placarVisitante: json['placar_oficial_visitante'] as int,
+      clubeMandante: clubeMandante,
+      clubeVisitante: clubeVisitante,
+      placarMandante: placarMandante,
+      placarVisitante: placarVisitante,
       local: json['local'] as String,
       data: formatoData.format(dataHorario),
       horario: formatoHora.format(dataHorario),

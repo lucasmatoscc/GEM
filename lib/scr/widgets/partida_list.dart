@@ -37,9 +37,9 @@ class PartidaWidget extends StatelessWidget{
                   child: Image.network(snapshot.data[index].clubeMandante.urlEscudo60x60)
                 ),
                 Text(snapshot.data[index].clubeMandante.abreviacao),
-                Text(snapshot.data[index].placarMandante.toString(),style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
+                Text(snapshot.data[index].placarMandante, style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
                 Text(' X '),
-                Text(snapshot.data[index].placarVisitante.toString(),style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
+                Text(snapshot.data[index].placarVisitante, style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
                 Text(snapshot.data[index].clubeVisitante.abreviacao),                      
                 Container(
                   width: 35.0, 
