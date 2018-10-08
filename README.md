@@ -1,16 +1,8 @@
-<br/>
-<img src="https://flutter.io/images/flutter-mark-square-100.png" width="70">
-<br/>
+# gem_app
 
-## Flutter Starter (v0.1)
+A new Flutter application.
 
-A starter kit for Flutter. 
-This kit include Tabs, Drawer and Custom Navigation Transistion for Android and iOS.
+## Getting Started
 
-## Preview
-
-<img src="https://github.com/felipecarvalho/flutterstarter/blob/master/preview.gif">
-
-## Documentation
-
-For help getting started with Flutter: [flutter.io](http://flutter.io/).
+For help getting started with Flutter, view our online
+[documentation](https://flutter.io/).
