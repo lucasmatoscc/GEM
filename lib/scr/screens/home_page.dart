@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'destaque_page.dart';
 import 'partida_page.dart';
 import 'mercado_page.dart';
+import 'pontuadores_page.dart';
 import 'dart:io';
 import 'dart:async';
 class DrawerItem {
@@ -16,7 +17,8 @@ class HomePage extends StatefulWidget {
   final drawerItems = [
      DrawerItem("Bem-vindo", Icons.home),
      DrawerItem("Mais Escalados da Rodada", Icons.group),        
-     DrawerItem("Jogos da Rodada", Icons.date_range), 
+     DrawerItem("Jogos da Rodada", Icons.date_range),
+     DrawerItem("Pontuadores da Rodada", Icons.account_box),
   ];
 
   @override
@@ -36,7 +38,9 @@ class HomePageState extends State<HomePage> {
       case 1:
         return DestaquePage();
       case 2:
-        return PartidaPage();  
+        return PartidaPage();
+      case 3:
+        return Pontuadores_page();
       default:
         return Text("Error");
     }
